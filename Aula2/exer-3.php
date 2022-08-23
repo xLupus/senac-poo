@@ -6,34 +6,37 @@ if( isset($_GET['btn_calcular']) ){
   $b = $_GET['val_b'];
   $c = $_GET['val_c'];
 
-  $valdelta = getDelta ( $a, $b, $c );
-  $analise = analiseDelta ( $valdelta );
+  $valdelta = getDelta($a, $b, $c);
+  $analise = analiseDelta($valdelta);
 
   if ( $valdelta >= 0 ) {
-    $x1 = getX1 ( $a, $b, $valdelta );
-    $x2 = getX2 ( $a,$b,$valdelta );
+    $x1 = getX1($a, $b, $valdelta);
+    $x2 = getX2($a, $b, $valdelta);
   }
 }
 
 function getDelta ( $a,$b,$c ) {
-  $del = pow ( $b, 2 ) - 4 * $a * $c;
+  $del = pow ($b, 2) - 4 * $a * $c;
   return $del;
 }
 
 function getX1 ( $a, $b, $valordelta ) {
-  $x1 = (-$b + sqrt ($valordelta ) ) / (2 * $a);
+  $x1 = (-$b + sqrt($valordelta) ) / (2 * $a);
   return $x1;
 }
 
 function getX2 ( $a, $b, $valordelta ) {
-  $x2 = (-$b - sqrt ($valordelta ) ) / (2 * $a);
+  $x2 = (-$b - sqrt($valordelta) ) / (2 * $a);
   return $x2;
 }
 
 function analiseDelta ( $delta ) {
-  if ( $delta == 0 ) return "Duas raizes reais iguais!";
-  else if ( $delta > 0 ) return "Duas raizes reais diferentes!";
-  else return "Sem solução!";
+  if ( $delta == 0 )
+    return "Duas raizes reais iguais!";
+  else if ( $delta > 0 )
+    return "Duas raizes reais diferentes!";
+  else
+    return "Sem solução!";
 }
 
 ?>
