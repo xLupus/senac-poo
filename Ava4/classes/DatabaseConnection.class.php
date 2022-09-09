@@ -1,11 +1,11 @@
 <?php
 
 class DatabaseConnection{
-    private $DB_DRIVE;
-    private $DB_HOST;
-    private $DB_NAME;
-    private $DB_USER;
-    private $DB_PASS;
+    public $DB_DRIVE;
+    public $DB_HOST;
+    public $DB_NAME;
+    public $DB_USER;
+    public $DB_PASS;
 
     public function setConnection(){
       $this->DB_DRIVE = 'mysql';
@@ -15,17 +15,30 @@ class DatabaseConnection{
       $this->DB_PASS  = '';
 
       try {
-        $conn = new PDO("mysql:host={$this->DB_HOST};dbname={$this->DB_NAME}", $this->DB_USER, $this->DB_PASS);
-
-        return true;
+         $conn = new PDO("mysql:host={$this->DB_HOST};dbname={$this->DB_NAME}", $this->DB_USER, $this->DB_PASS);
+         return $conn;
 
       } catch (\Exception $e) {
         echo $e;
-        return false;
       }
     }
 
 }
+
+
+
+
+/*
+$DB_DRIVE = 'mysql';
+$DB_HOST  = 'localhost';
+$DB_NAME  = 'protocolo';
+$DB_USER  = 'root';
+$DB_PASS  = '';
+
+$conn = new PDO("mysql:host={$DB_HOST};dbname={$DB_NAME}", $DB_USER, $DB_PASS);
+*/
+
+
 
 /*
 CREATE DATABASE Protocolo;
