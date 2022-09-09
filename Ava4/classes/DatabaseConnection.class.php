@@ -1,6 +1,29 @@
 <?php
 
 class DatabaseConnection{
+    private $DB_DRIVE;
+    private $DB_HOST;
+    private $DB_NAME;
+    private $DB_USER;
+    private $DB_PASS;
+
+    public function setConnection(){
+      $this->DB_DRIVE = 'mysql';
+      $this->DB_HOST  = 'localhost';
+      $this->DB_NAME  = 'protocolo';
+      $this->DB_USER  = 'root';
+      $this->DB_PASS  = '';
+
+      try {
+        $conn = new PDO("mysql:host={$this->DB_HOST};dbname={$this->DB_NAME}", $this->DB_USER, $this->DB_PASS);
+
+        return true;
+
+      } catch (\Exception $e) {
+        echo $e;
+        return false;
+      }
+    }
 
 }
 
@@ -26,5 +49,4 @@ CREATE TABLE clientes(
   	rg varchar(9),
   	cpf varchar(11)
 )
-
  */
