@@ -1,12 +1,40 @@
 <?php
 
 class DatabaseConnection{
+    /**
+     * Gerenciador de Banco de Dados.
+     * @var string
+     */
     public $DB_DRIVE;
+
+    /**
+     * Host do Banco de Dados
+     * @var string
+     */
     public $DB_HOST;
+
+    /**
+     * Nome do Banco de Dados
+     * @var string
+     */
     public $DB_NAME;
+
+    /**
+     * Usuario para acessar o Banco
+     * @var string
+     */
     public $DB_USER;
+
+    /**
+     * Senha do Bnaco de Dados
+     * @var string
+     */
     public $DB_PASS;
 
+
+    /**
+     * Define as variaveis de conexão.
+     */
     public function __construct()
     {
         $this->setDBDRIVE('mysql');
@@ -16,6 +44,9 @@ class DatabaseConnection{
         $this->setDBPASS('SL-221B-VAS');
     }
 
+    /**
+     * Realiza a conexão com o Banco de Dados.
+     */
     public function setConnection(){
         $dns = "mysql:host={$this->DB_HOST};dbname={$this->DB_NAME}";
         $user = $this->DB_USER;
