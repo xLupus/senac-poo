@@ -17,15 +17,15 @@ if (isset($_POST['btn_logar'])) {
     $email = $_POST['login'];
     $senha = $_POST['password'];
 
-    if ($registro->setLogin($email, $senha)) {
+    if ($registro->setLogin($email, $senha))
         echo "Logado";
-    }else {
+    else
         echo "Email ou senha incorretos";
-    }
 }
 
-if (isset($_POST['btn_validar_codigo'])) {
+if (isset($_POST['btn_validar'])) {
+    $user  = $_POST['login'];
     $codigo = $_POST['validar'];
 
-    $registro->setValidar($codigo);
+    $registro->setValidar($user, $codigo);
 }

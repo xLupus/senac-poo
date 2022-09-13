@@ -19,7 +19,12 @@ class Registro extends DatabaseConnection{
     private $tipo;
 
 
-
+    /**
+     * Define os atributos basicos de registro
+     * @param string $login  Username
+     * @param string $email  Email
+     * @param int $telefone  telefone
+     */
     public function setUsuario($login, $email, $telefone)
     {
         $this->login    = $login;
@@ -28,7 +33,9 @@ class Registro extends DatabaseConnection{
     }
 
 
-
+    /**
+     * Registrar o usuario no banco e mandar o email.
+     */
     public function setRegistrar()
     {
         $mail = new PHPMailer(true);
@@ -67,13 +74,14 @@ class Registro extends DatabaseConnection{
                 //echo 'Erro: ' . $mail->ErrorInfo;
             }
         }
-
-        $conn = '';
-        $mail = '';
     }
 
 
-
+    /**
+     * Realiza o Login do Usuario
+     * @param string $login  nome de Usuario
+     * @param int $codAcesso  Senha mandada por email
+     */
     public function setLogin($login, $codAcesso){
         $conn    = $this->setConnection();
         $getPass = $conn->prepare("SELECT codAcesso
@@ -90,47 +98,45 @@ class Registro extends DatabaseConnection{
             else
                 return false;
 
-        }else {
+        }else
             return false;
-        }
     }
 
 
-
-    public function setValidar($senha){
+    /**
+     * Valida o login do Usuario
+     * @param string $email  Email
+     * @param int    $senha  senha
+     */
+    public function setValidar($user, $senha){
         $conn    = $this->setConnection();
+
         $getPass = $conn->prepare("SELECT codAcesso
                                    FROM usuarios
-                                   where email = :email");
+                                   where login = :user");
 
-        $getPass->bindParam(':email', $this->email);
+        $getPass->bindParam(':user', $user);
         $getPass->execute();
-
-        echo "<pre>";
-        var_dump($this->email);
-        echo "</pre>";
-
-        echo "<pre>";
-        var_dump($senha);
-        echo "</pre>";
 
         if ($getPass = $getPass->fetch(PDO::FETCH_ASSOC)) {
             if($getPass['codAcesso'] == $senha){
                 $validade = $conn->prepare("UPDATE usuarios
                                             SET validado = 1
-                                            WHERE email = :email");
+                                            WHERE login = :user");
 
-                $validade->bindParam(':email', $this->email);
-                $validade->execute();
+                $validade->bindParam(':user', $user);
 
-            }else {
-                echo "Codigo de Acesso invalido";
-            }
-        } else {
-            echo "Codigo de Acesso invalido";
-        }
+                if ($validade->execute()) {
+                    echo "Codigo validado <br>
+                        <a href='index.html'>Voltar</a>
+                    ";
+                }
 
 
 
+            } else
+                echo "Usuario ou Codigo de Acesso invalido";
+        } else
+            echo "Usuario ou Codigo de Acesso invalido";
     }
 }
