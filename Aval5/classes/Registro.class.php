@@ -131,9 +131,6 @@ class Registro extends DatabaseConnection{
                         <a href='index.html'>Voltar</a>
                     ";
                 }
-
-
-
             } else
                 echo "Usuario ou Codigo de Acesso invalido";
         } else
